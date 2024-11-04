@@ -1,11 +1,15 @@
+#-*- coding: utf-8 -*-
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
+plt.rcParams['font.sans-serif']=['SimHei'] #用来正常显示中文标签
+plt.rcParams['axes.unicode_minus']=False #用来正常显示负号
 # 假设你的文件路径为 'pointData.xls'
 file_path = 'pointData.xls'
 
 # 使用pandas读取excel文件，只选择第3列、第4列和第5列
-df = pd.read_excel(file_path, usecols=[3, 4, 5])
+df = pd.read_excel(file_path, usecols=[2, 4, 5])
 
 # 重命名列
 df.columns = ['type', 'x', 'y']
@@ -41,13 +45,13 @@ for group_name, group_data in grouped:
     color = colors[current_color_index % len(colors)]  # 循环使用颜色列表
     # 在指定坐标处添加多个标记
     ax.plot(group_data['x'], group_data['y'], marker='o', color=color, markersize=8, linestyle='',
-            label=f"类型 {group_name}")
+            label=f"{group_name}")
 
     # 更新颜色索引
     current_color_index += 1
 
 # 添加图例
-# ax.legend()
+ax.legend()
 
 # 保存图像
 plt.savefig('map_all_types.png')
